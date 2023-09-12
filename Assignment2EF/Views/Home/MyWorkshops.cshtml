@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Enrollement>
+
+@{
+    Layout = "_Layout"; ViewBag.Title = "Search Enrollement";
+}
+<h2 class="display-3 m-2">Search for Admission</h2>
+<hr class="m-2" />
+
+<form method="post" class="m-2">
+    <div class="form-group">
+        <label for="email" class="col-form-label">Enter Your Email:</label>
+        <input name="email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <button style="margin-top:15px" type="submit" class="btn btn-primary">Search</button>
+        <a asp-action="Index" style="margin-top:15px" class="btn btn-outline-secondary">Back</a>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    @if(ViewBag.ShowMsg == false){
+        <table class="table table-bordered table-striped m-2">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Workshops</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td align="center">@item.EnrollementId</td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>
+                            @foreach(var item2 in @item.Workshops){
+                                @item2.Title
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }else if(ViewBag.ShowMsg == true){
+        <div class="alert alert-warning alert-dismissible fade show m-2" role="alert">
+            <strong>Sorry!</strong> There are no enrollements with this email. <br/>
+        </div>
+    }
+    
+}

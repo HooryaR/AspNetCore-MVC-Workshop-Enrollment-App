@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Workshop>
+@{
+    Layout = "_Layout"; ViewBag.Title = "All Workshops";
+}
+
+
+
+    <h2 class="display-3 m-2">All Workshops</h2>
+    <hr class="m-2"/>
+    <div class="m-2">
+        <a asp-action="MyWorkshops" class="btn btn-outline-primary" style="margin-top:10px; margin-bottom:10px">Search Admission</a>
+    </div>
+    
+
+    <table class="table table-bordered table-striped m-2">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Information</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td align="center">@item.WorkshopId</td>
+                    <td>@item.Title</td>
+                    <td>@item.Information</td>
+                    @if (@item.IsFull == true)
+                    {
+                        <td align="center" class="text-danger">Full</td>
+                        <td></td>
+                    }
+                    else if (@item.IsFull == false)
+                    {
+                        <td align="center" class="text-success">@item.Enrollements.Count()/@item.Capacity</td>
+                        <td align="center"><a asp-action="Enroll" asp-route-id="@item.WorkshopId" class="btn btn-sm btn-primary">Enroll</a></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
